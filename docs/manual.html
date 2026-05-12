@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - Calculadora de Impacto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #8B1538 0%, #A52050 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .version-info {
+            background-color: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        nav {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+        }
+
+        nav h2 {
+            color: #8B1538;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav li {
+            margin-bottom: 8px;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 5px 10px;
+            display: block;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #8B1538;
+            color: white;
+        }
+
+        section {
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        section h2 {
+            color: #8B1538;
+            border-bottom: 2px solid #8B1538;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        section h3 {
+            color: #A52050;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        section h4 {
+            color: #333;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background-color: #fff3e0;
+            border-left: 4px solid #FF9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tip-box {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9C27B0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #8B1538;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #d32f2f;
+        }
+
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .placeholder-image {
+            background-color: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #666;
+        }
+
+        .placeholder-image p {
+            font-style: italic;
+            color: #555;
+        }
+
+        .step {
+            background-color: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #8B1538;
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: #8B1538;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .nav-button {
+            display: inline-block;
+            background-color: #8B1538;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: #6b0f2b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 2px solid #8B1538;
+            color: #666;
+        }
+
+        .toc-link {
+            color: #8B1538;
+            text-decoration: none;
+        }
+
+        .toc-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            section {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+
+        .highlight {
+            background-color: #fff9c4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📘 Manual de Usuario</h1>
+            <p>Calculadora de Impacto - Líderes Digitales PUCP</p>
+            <div class="version-info">
+                <strong>Versión:</strong> 1.0 | <strong>Fecha:</strong> Abril 2026
+            </div>
+        </header>
+
+        <nav>
+            <h2>📑 Tabla de Contenidos</h2>
+            <ul>
+                <li><a href="#introduccion">1. Introducción</a></li>
+                <li><a href="#acceso">2. ¿Cómo Acceder a la Herramienta?</a></li>
+                <li><a href="#despliegue">3. Opciones de Despliegue</a></li>
+                <li><a href="#uso">4. Guía de Uso Paso a Paso</a></li>
+                <li><a href="#dashboard">5. Dashboard y Exportación</a></li>
+                <li><a href="#preguntas">6. Preguntas Frecuentes</a></li>
+            </ul>
+        </nav>
+
+        <section id="introduccion">
+            <h2>1. Introducción</h2>
+            <p>
+                ¡Bienvenido a la <strong>Calculadora de Impacto</strong>! Esta herramienta ha sido diseñada 
+                especialmente para los <strong>Líderes Digitales</strong> de la PUCP, con el objetivo de 
+                medir y demostrar el valor generado por sus proyectos de transformación digital.
+            </p>
+            
+            <div class="info-box">
+                <span class="emoji">💡</span> <strong>¿Qué es la Calculadora de Impacto?</strong><br>
+                Es una aplicación web que le permite documentar, registrar y visualizar el impacto 
+                de sus proyectos de automatización y transformación digital, calculando automáticamente 
+                indicadores como el ROI (Retorno de Inversión), horas liberadas y ahorros financieros.
+            </div>
+
+            <p>Con esta herramienta podrá:</p>
+            <ul>
+                <li>Documentar el estado inicial de sus procesos ("Antes")</li>
+                <li>Registrar la inversión en horas y licencias del proyecto</li>
+                <li>Medir los resultados después de la implementación ("Después")</li>
+                <li>Visualizar el impacto mediante gráficos y métricas</li>
+                <li>Exportar reportes en PDF, Excel o CSV para compartir con su organización</li>
+            </ul>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Imagen general de la interfaz principal de la Calculadora de Impacto, mostrando el menú lateral con las 4 pestañas (Acta de Nacimiento, Registro de Costos, Registro del Proyecto, Dashboard) y el logo PUCP en la parte superior.</p>
+            </div>
+        </section>
+
+        <section id="acceso">
+            <h2>2. ¿Cómo Acceder a la Herramienta?</h2>
+            <p>
+                Tiene <strong>dos opciones</strong> para acceder a la Calculadora de Impacto. 
+                La <strong>Opción 1</strong> es la más rápida y recomendada para comenzar de inmediato.
+            </p>
+
+            <table>
+                <tr>
+                    <th>Opción</th>
+                    <th>Descripción</th>
+                    <th>Ventaja Principal</th>
+                </tr>
+                <tr>
+                    <td><strong>Opción 1</strong><br>Acceso vía Web</td>
+                    <td>Acceda mediante un link en su navegador</td>
+                    <td>✅ Inmediato - Sin configuración</td>
+                </tr>
+                <tr>
+                    <td><strong>Opción 2</strong><br>Despliegue Local</td>
+                    <td>Instale la herramienta en su infraestructura</td>
+                    <td>✅ Control total - Disponible 24/7</td>
+                </tr>
+            </table>
+
+            <div class="success-box">
+                <span class="emoji">💡</span> <strong>Recomendación:</strong> Comience con la <strong>Opción 1</strong> 
+                para evaluar la herramienta. Si decide adoptarla permanentemente, puede solicitar el código 
+                fuente y desplegarla en su infraestructura usando la <strong>Opción 2</strong>.
+            </div>
+        </section>
+
+        <section id="despliegue">
+            <h2>3. Opciones de Despliegue</h2>
+
+            <h3>🌐 Opción 1: Acceso Inmediato (Recomendado)</h3>
+            <p>
+                Esta es la forma <strong>más rápida y sencilla</strong> de comenzar a usar la herramienta 
+                sin necesidad de configurar nada. Hemos desplegado la Calculadora de Impacto en 
+                <strong>Vercel</strong>, una plataforma de hosting moderno y confiable.
+            </p>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Abra su navegador web preferido</strong><br>
+                Puede usar Google Chrome, Microsoft Edge, Mozilla Firefox o Safari.
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Ingrese el link proporcionado</strong><br>
+                <code>https://calculadora-impacto-[xxx].vercel.app</code><br>
+                <em>Reemplace <code>[xxx]</code> con el identificador que le fue proporcionado.</em>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>¡Comience a registrar su proyecto!</strong><br>
+                No necesita instalar nada. La aplicación cargará directamente en su navegador.
+            </div>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura de pantalla de un navegador web (Chrome o Edge) mostrando la URL de Vercel en la barra de direcciones y la página de la Calculadora de Impacto cargada exitosamente.</p>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ Ventajas de esta opción:</strong>
+                <ul>
+                    <li>Sin instalación - Solo necesita un navegador web</li>
+                    <li>Acceso inmediato - Empiece en segundos</li>
+                    <li>Sin costos de infraestructura</li>
+                    <li>Actualizaciones automáticas</li>
+                    <li>Compatible con PC, laptop y tablet</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Consideraciones importantes:</strong>
+                <ul>
+                    <li>Requiere conexión a internet</li>
+                    <li>Los datos se almacenan en su navegador (localStorage)</li>
+                    <li>Exporte sus reportes regularmente (PDF/Excel) para mantener un respaldo</li>
+                </ul>
+            </div>
+
+            <h3>🖥️ Opción 2: Despliegue en su Infraestructura</h3>
+            <p>
+                Si su organización requiere tener la herramienta bajo su propio control, puede 
+                desplegarla en su infraestructura interna o en cualquier servicio de hosting de su preferencia.
+            </p>
+
+            <h4>📦 ¿Qué recibe?</h4>
+            <p>Un archivo <strong>ZIP</strong> que contiene todo el código fuente de la aplicación, 
+            archivos de configuración y las dependencias necesarias.</p>
+
+            <h4>🛠️ Requisitos Técnicos</h4>
+            <table>
+                <tr>
+                    <th>Requisito</th>
+                    <th>Versión Mínima</th>
+                    <th>¿Por qué?</th>
+                </tr>
+                <tr>
+                    <td>Node.js</td>
+                    <td>18.x o superior</td>
+                    <td>Entorno de ejecución de JavaScript</td>
+                </tr>
+                <tr>
+                    <td>npm</td>
+                    <td>9.x o superior</td>
+                    <td>Gestor de paquetes (se instala con Node.js)</td>
+                </tr>
+                <tr>
+                    <td>Servidor Web</td>
+                    <td>Cualquiera</td>
+                    <td>Para hospedar la aplicación</td>
+                </tr>
+            </table>
+
+            <h4>📋 Pasos para el Despliegue</h4>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Verificar que tiene Node.js instalado</strong><br>
+                Abra una terminal/consola y ejecute:<br>
+                <pre><code>node --version</code></pre>
+                Debe mostrar algo como: <code>v18.x.x</code> o superior.<br>
+                Si no lo tiene, descárguelo desde: <a href="https://nodejs.org/" target="_blank">https://nodejs.org/</a>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Extraer el archivo ZIP</strong><br>
+                Cree una carpeta en su sistema (ej: <code>C:\calculadora-impacto</code>) 
+                y extraiga el contenido del ZIP en esa carpeta.
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Instalar dependencias</strong><br>
+                Abra una terminal en la carpeta del proyecto y ejecute:<br>
+                <pre><code>npm install</code></pre>
+                <em>Tiempo estimado: 2-5 minutos</em>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Generar la versión de producción</strong><br>
+                Ejecute el siguiente comando:<br>
+                <pre><code>npm run build</code></pre>
+                Esto creará una carpeta llamada <code>dist/</code> con todos los archivos optimizados.
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Desplegar en su servidor</strong><br>
+                Copie el contenido de la carpeta <code>dist/</code> a la carpeta pública 
+                de su servidor web (Apache, Nginx, IIS, etc.).
+            </div>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura de pantalla de una terminal/consola mostrando los comandos npm install y npm run build ejecutándose exitosamente, con la carpeta dist/ generada al final.</p>
+            </div>
+
+            <div class="tip-box">
+                <span class="emoji">💡</span> <strong>Alternativa rápida:</strong> Puede usar el comando 
+                <code>npx serve -s dist -l 3000</code> para iniciar un servidor local de prueba 
+                en el puerto 3000.
+            </div>
+        </section>
+
+        <section id="uso">
+            <h2>4. Guía de Uso Paso a Paso</h2>
+            <p>
+                La Calculadora de Impacto está organizada en <strong>4 pestañas</strong> accesibles 
+                desde el menú lateral izquierdo. Complete cada pestaña en orden para registrar 
+                completamente su proyecto.
+            </p>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura del menú lateral izquierdo de la aplicación mostrando las 4 pestañas: 1) Acta de Nacimiento, 2) Registro de Costos, 3) Registro del Proyecto, 4) Dashboard. Resaltar que deben completarse en orden.</p>
+            </div>
+
+            <h3>📋 Pestaña 1: Acta de Nacimiento del Proyecto</h3>
+            <p>
+                Esta es la <strong>línea base</strong> de su proyecto. Aquí documentará el estado 
+                actual ("As-Is") del proceso que busca mejorar.
+            </p>
+
+            <h4>Secciones a completar:</h4>
+            <ol>
+                <li><strong>Datos Generales:</strong> Nombre del proyecto, líder digital, correo, unidad/facultad, fechas de inicio y fin.</li>
+                <li><strong>Tipificación del Proyecto:</strong> Seleccione la categoría (Automatización, Gestión de Datos, RPA, etc.).</li>
+                <li><strong>El Dolor:</strong> Describa el problema actual y seleccione los dolores identificados (demora, errores, sobrecarga, etc.).</li>
+                <li><strong>Línea Base:</strong> Registre volumen de operaciones, tiempo de ciclo, personas involucradas y esfuerzo operativo.</li>
+                <li><strong>Variables Cualitativas:</strong> Defina hasta 3 variables cualitativas y califíquelas del 1 al 5.</li>
+                <li><strong>Variables Cuantitativas:</strong> Defina hasta 3 variables cuantitativas con sus valores actuales.</li>
+                <li><strong>La Solución:</strong> Describa qué se va a construir y qué herramientas se utilizarán.</li>
+                <li><strong>Validación:</strong> Nombre del Líder Digital (firma) y validación de jefatura (opcional).</li>
+            </ol>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura de la pestaña "Acta de Nacimiento" mostrando el formulario completo con campos de Datos Generales, Tipificación del Proyecto, El Dolor, Línea Base, Variables Cualitativas, Variables Cuantitativas y La Solución.</p>
+            </div>
+
+            <div class="info-box">
+                <span class="emoji">💡</span> <strong>Consejo:</strong> Sea lo más específico posible en la descripción del problema y la solución. 
+                Esta información será clave para demostrar el valor generado al final del proyecto.
+            </div>
+
+            <h3>💰 Pestaña 2: Registro de Costos</h3>
+            <p>
+                Aquí registrará toda la <strong>inversión económica</strong> del proyecto en horas 
+                de trabajo y licencias de software.
+            </p>
+
+            <h4>Sección A: Registro de Horas</h4>
+            <table>
+                <tr>
+                    <th>Campo</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td>Fecha</td>
+                    <td>Día en que se realizó el trabajo</td>
+                </tr>
+                <tr>
+                    <td>Tipo de horas</td>
+                    <td>Diseño, Desarrollo, Testing, Implementación, Documentación</td>
+                </tr>
+                <tr>
+                    <td>Horas (HH)</td>
+                    <td>Cantidad de horas trabajadas</td>
+                </tr>
+                <tr>
+                    <td>Tarifa (S/.)</td>
+                    <td>Costo por hora en Soles Peruanos</td>
+                </tr>
+                <tr>
+                    <td>Responsable</td>
+                    <td>Persona que registra las horas</td>
+                </tr>
+            </table>
+
+            <h4>Sección B: Registro de Licencias</h4>
+            <table>
+                <tr>
+                    <th>Campo</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td>Fecha</td>
+                    <td>Fecha de adquisición/registro</td>
+                </tr>
+                <tr>
+                    <td>Nombre de Licencia</td>
+                    <td>Software o herramienta (ej: PowerBI, Kissflow)</td>
+                </tr>
+                <tr>
+                    <td>Costo anual</td>
+                    <td>Tarifa anual en su moneda local</td>
+                </tr>
+                <tr>
+                    <td>Responsable</td>
+                    <td>Persona que registra la licencia</td>
+                </tr>
+            </table>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura de la pestaña "Registro de Costos" mostrando las dos secciones: A) Registro de Horas con varios registros de ejemplo, y B) Registro de Licencias con el total calculado.</p>
+            </div>
+
+            <div class="tip-box">
+                <span class="emoji">💡</span> <strong>¿Cómo calculo la tarifa por hora?</strong><br>
+                Use la fórmula: <code>Tarifa = Salario mensual / Horas laborables al mes</code><br>
+                Ejemplo: S/ 5000 / 160h = <strong>S/ 31.25/hora</strong>
+            </div>
+
+            <h3>📊 Pestaña 3: Registro del Proyecto</h3>
+            <p>
+                Aquí registrará el <strong>esfuerzo operativo</strong> y las variables de impacto 
+                <strong>antes y después</strong> de la implementación.
+            </p>
+
+            <h4>Sección A: Registro de Esfuerzo Operativo</h4>
+            <p>Registre las horas dedicadas por cada colaborador que participa en la ejecución 
+            de una operación/transacción.</p>
+            
+            <ol>
+                <li>Primero registre el esfuerzo <strong>"Antes de la implementación"</strong></li>
+                <li>Luego haga clic en <strong>"Agregar data después de la implementación"</strong></li>
+                <li>Complete los datos del esfuerzo <strong>"Después de la implementación"</strong></li>
+            </ol>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura de la Sección A "Registro de Esfuerzo Operativo" mostrando un registro "Antes" y su correspondiente registro "Después" creado con el botón de agregar data después.</p>
+            </div>
+
+            <h4>Sección B: Variables Cualitativas</h4>
+            <p>Registre variables como Satisfacción, Eficiencia, Calidad, etc., calificándolas 
+            del 1 al 5 (1=Pésimo, 5=Excelente).</p>
+            
+            <ol>
+                <li>Primero registre las variables <strong>"Antes"</strong></li>
+                <li>Luego haga clic en <strong>"Agregar resultados después"</strong></li>
+                <li>Complete la calificación <strong>"Después"</strong> de la implementación</li>
+            </ol>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura de la Sección B "Variables Cualitativas" mostrando el slider de calificación del 1 al 5 y los registros Antes y Después comparados.</p>
+            </div>
+
+            <h4>Sección C: Variables Cuantitativas</h4>
+            <p>Registre variables numéricas como "Número de errores", "Tiempo de espera", etc.</p>
+            
+            <ol>
+                <li>Primero registre los valores <strong>"Antes"</strong></li>
+                <li>Luego registre los valores <strong>"Después"</strong> de la implementación</li>
+            </ol>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura de la Sección C "Variables Cuantitativas" mostrando un ejemplo de registro de variable cuantitativa Antes y Después (ej: errores por operación).</p>
+            </div>
+        </section>
+
+        <section id="dashboard">
+            <h2>5. Dashboard y Exportación de Datos</h2>
+            <p>
+                El <strong>Dashboard</strong> es donde podrá visualizar todos los indicadores clave 
+                de desempeño (KPIs) y el impacto de su proyecto de manera gráfica y clara.
+            </p>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura completa de la pestaña "Dashboard" mostrando los 4 KPIs principales (Inversión Total, Ahorro Financiero Anual, ROI, Horas Liberadas), los gráficos de impacto cualitativo y cuantitativo, y los botones de exportar PDF, Excel y CSV en la parte superior derecha.</p>
+            </div>
+
+            <h3>📈 KPIs Principales</h3>
+            <table>
+                <tr>
+                    <th>Indicador</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td><strong>Inversión Total</strong></td>
+                    <td>Total invertido en horas y licencias del proyecto</td>
+                </tr>
+                <tr>
+                    <td><strong>Ahorro Financiero Anual</strong></td>
+                    <td>Ahorro proyectado al año basado en la reducción de costos operativos</td>
+                </tr>
+                <tr>
+                    <td><strong>ROI (%)</strong></td>
+                    <td>Retorno de Inversión - Porcentaje de retorno sobre lo invertido</td>
+                </tr>
+                <tr>
+                    <td><strong>Horas Liberadas al Año</strong></td>
+                    <td>Horas de trabajo ahorradas anualmente gracias a la automatización</td>
+                </tr>
+            </table>
+
+            <h3>📊 Gráficos de Impacto</h3>
+            
+            <h4>Impacto Cualitativo</h4>
+            <p>Gráfico de barras comparativo "Antes vs Después" de las variables cualitativas.</p>
+            <ul>
+                <li><strong>Barra azul oscuro:</strong> Calificación Antes</li>
+                <li><strong>Barra naranja:</strong> Calificación Después</li>
+            </ul>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura del gráfico de barras "Impacto Cualitativo" mostrando la comparación Antes (azul) vs Después (naranja) de 3 variables cualitativas (ej: Satisfacción, Eficiencia, Calidad).</p>
+            </div>
+
+            <h4>Impacto Cuantitativo</h4>
+            <p>Gráfico de barras comparativo "Antes vs Después" de las variables cuantitativas.</p>
+            <ul>
+                <li><strong>Barra verde:</strong> Valor Antes</li>
+                <li><strong>Barra amarilla:</strong> Valor Después</li>
+            </ul>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura del gráfico de barras "Impacto Cuantitativo" mostrando la comparación Antes (verde) vs Después (amarillo) de 3 variables cuantitativas (ej: número de errores, tiempo de espera).</p>
+            </div>
+
+            <h3>📥 Exportar Informe de Datos</h3>
+            <p>
+                Para compartir los resultados de su proyecto o mantener un respaldo de la información, 
+                puede exportar los datos en tres formatos diferentes utilizando los botones ubicados 
+                en la <strong>parte superior derecha</strong> del Dashboard.
+            </p>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura cercana de los 3 botones de exportación en la esquina superior derecha del Dashboard: botón PDF (icono de documento), botón Excel (icono de hoja de cálculo), botón CSV (icono de archivo plano).</p>
+            </div>
+
+            <h4>📄 Exportar a PDF</h4>
+            <p>Genera un <strong>reporte formal</strong> con tablas y métricas listo para imprimir o compartir.</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                Navegue a la pestaña <strong>Dashboard</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                Haga clic en el botón <strong>PDF</strong> (icono 📄) en la esquina superior derecha
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                El archivo se descargará automáticamente en su carpeta de Descargas
+            </div>
+
+            <p><strong>Contenido del PDF:</strong></p>
+            <ul>
+                <li>Información general del proyecto (Acta de Nacimiento)</li>
+                <li>Tabla de KPIs principales</li>
+                <li>Tabla de impacto cualitativo</li>
+                <li>Tabla de impacto cuantitativo</li>
+                <li>Resumen de inversión en horas y licencias</li>
+            </ul>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Ejemplo de un reporte PDF exportado mostrando la portada con el logo PUCP, título del proyecto, y las primeras páginas con la tabla de KPIs y gráficos de impacto.</p>
+            </div>
+
+            <h4>📊 Exportar a Excel</h4>
+            <p>Genera un archivo con <strong>múltiples hojas</strong> organizadas por tipo de dato.</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                Navegue a la pestaña <strong>Dashboard</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                Haga clic en el botón <strong>Excel</strong> (icono 📊) en la esquina superior derecha
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                El archivo se descargará automáticamente
+            </div>
+
+            <p><strong>Hojas del Excel:</strong></p>
+            <ul>
+                <li><strong>KPIs:</strong> Indicadores clave de desempeño</li>
+                <li><strong>Cualitativas:</strong> Variables cualitativas Antes y Después</li>
+                <li><strong>Cuantitativas:</strong> Variables cuantitativas Antes y Después</li>
+                <li><strong>Horas:</strong> Registro detallado de horas trabajadas</li>
+                <li><strong>Licencias:</strong> Registro de licencias y costos</li>
+            </ul>
+
+            <div class="placeholder-image">
+                <p>📸 CAPTURA: Captura de un archivo Excel abierto mostrando las 5 hojas en la parte inferior (KPIs, Cualitativas, Cuantitativas, Horas, Licencias) y datos de ejemplo en la hoja activa.</p>
+            </div>
+
+            <h4>📁 Exportar a CSV</h4>
+            <p>Genera archivos en <strong>formato plano</strong> para importar en otras herramientas.</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                Navegue a la pestaña <strong>Dashboard</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                Haga clic en el botón <strong>CSV</strong> (icono 📁) en la esquina superior derecha
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                Se descargarán múltiples archivos CSV (uno por cada tipo de dato)
+            </div>
+
+            <div class="tip-box">
+                <span class="emoji">💡</span> <strong>Recomendación:</strong> Exporte sus datos regularmente 
+                para mantener un respaldo de su información y poder compartir avances del proyecto 
+                con su jefatura o equipo de trabajo.
+            </div>
+        </section>
+
+        <section id="preguntas">
+            <h2>6. Preguntas Frecuentes</h2>
+
+            <h4>❓ ¿Puedo editar los datos después de guardarlos?</h4>
+            <p>Sí, todos los registros se pueden editar directamente en sus respectivas pestañas. 
+            Los cambios se reflejan automáticamente en el Dashboard.</p>
+
+            <h4>❓ ¿Cuántas variables cualitativas/cuantitativas puedo registrar?</h4>
+            <p>Se recomienda un máximo de <strong>3 variables</strong> de cada tipo para mantener 
+            la claridad del análisis, pero puede registrar las que necesite.</p>
+
+            <h4>❓ ¿Qué pasa si no tengo datos "Después de la implementación"?</h4>
+            <p>El Dashboard mostrará únicamente los datos "Antes". Complete los registros 
+            "Después" una vez implementada la solución para ver la comparación completa.</p>
+
+            <h4>❓ ¿Cómo calculo la tarifa por hora de mis colaboradores?</h4>
+            <p>Use la siguiente fórmula:</p>
+            <pre><code>Tarifa por hora = Salario mensual / Horas laborables al mes
+Ejemplo: S/ 5000 / 160h = S/ 31.25/hora</code></pre>
+
+            <h4>❓ ¿Los datos se guardan permanentemente?</h4>
+            <p>Los datos se almacenan en el <strong>localStorage</strong> de su navegador mientras 
+            la sesión esté activa. Para conservación a largo plazo, use las opciones de exportación (PDF/Excel).</p>
+
+            <h4>❓ ¿Puedo usar esta herramienta en múltiples proyectos?</h4>
+            <p>Sí, puede registrar múltiples proyectos. Sin embargo, los datos se almacenan 
+            localmente en su navegador. Si necesita gestionar varios proyectos simultáneamente:</p>
+            <ul>
+                <li>Exporte los datos de cada proyecto antes de comenzar otro</li>
+                <li>Use navegadores diferentes o perfiles separados para cada proyecto</li>
+            </ul>
+
+            <h4>❓ ¿La herramienta funciona sin conexión a internet?</h4>
+            <ul>
+                <li><strong>Opción 1 (Link Vercel):</strong> Requiere conexión a internet</li>
+                <li><strong>Opción 2 (Despliegue local):</strong> Puede funcionar en red interna sin internet externo</li>
+            </ul>
+
+            <h4>❓ ¿Puedo personalizar la herramienta para mi empresa?</h4>
+            <p>Sí, con la <strong>Opción 2</strong> recibe el código fuente completo y puede:</p>
+            <ul>
+                <li>Cambiar logos y colores corporativos</li>
+                <li>Agregar campos personalizados</li>
+                <li>Modificar fórmulas de cálculo</li>
+                <li>Integrar con sus sistemas internos</li>
+            </ul>
+
+            <h4>❓ ¿Qué significa ROI y cómo se interpreta?</h4>
+            <p><strong>ROI</strong> = Retorno de Inversión. Un ROI de 3500% significa que por 
+            cada sol invertido, recuperó ese sol más 35 soles adicionales de ganancia.</p>
+        </section>
+
+        <footer>
+            <p><strong>© 2026 - Calculadora de Impacto PUCP</strong></p>
+            <p>Desarrollado para Líderes Digitales</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                ¿Necesita soporte? Contacte a: <a href="mailto:soporte@pucp.edu.pe" style="color: #8B1538;">soporte@pucp.edu.pe</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add active class to current section in navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.backgroundColor = '';
+                link.style.color = '';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.backgroundColor = '#8B1538';
+                    link.style.color = 'white';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

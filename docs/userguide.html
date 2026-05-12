@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario y Despliegue - Calculadora de Impacto</title>
+    <style>
+        :root {
+            --primary-color: #042B59; /* PUCP Dark Blue */
+            --secondary-color: #E35205; /* PUCP Orange */
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --sidebar-width: 320px;
+            --placeholder-bg: #f1f5f9;
+            --placeholder-border: #94a3b8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* Sidebar container */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid #e5e7eb;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            padding: 2rem 1rem;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #4b5563;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar a:hover {
+            background-color: #f3f4f6;
+            color: var(--primary-color);
+        }
+
+        .sidebar a.active {
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            font-weight: 600;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .sidebar ul ul {
+            padding-left: 1.5rem;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 3rem 4rem;
+            max-width: 1000px;
+            background: white;
+            min-height: 100vh;
+            box-sizing: border-box;
+            box-shadow: 0 0 15px rgba(0,0,0,0.02);
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        p, li {
+            font-size: 1.05rem;
+            color: #4b5563;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        table th, table td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .alert-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .alert-warning {
+            background-color: #fffbeb;
+            border-left-color: #f59e0b;
+        }
+
+        code {
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: inherit;
+            color: #e11d48;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* Image Placeholders */
+        .img-placeholder {
+            width: 100%;
+            min-height: 250px;
+            background-color: var(--placeholder-bg);
+            border: 2px dashed var(--placeholder-border);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            color: #64748b;
+            text-align: center;
+            padding: 3rem 2rem;
+            box-sizing: border-box;
+            flex-direction: column;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .img-placeholder::before {
+            content: "📸 Espacio para Imagen";
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .img-placeholder span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #475569;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        /* Enlaces e interactividad */
+        section {
+            scroll-margin-top: 2rem; /* Espacio superior al navegar por ancla */
+        }
+
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: 250px;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 2rem;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR DE NAVEGACIÓN (ÍNDICE) -->
+    <nav class="sidebar">
+        <div style="text-align: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--secondary-color);">
+            <img src="assets/PUCP-CXWPTomg.png" alt="Logo PUCP" style="max-width: 160px; height: auto; margin-bottom: 0.5rem;">
+            <h2 style="border: none; padding: 0; margin: 0; font-size: 1.15rem; color: var(--primary-color);">Calculadora de Impacto</h2>
+            <div style="font-size: 0.85rem; color: #64748b; margin-top: 0.5rem; text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Índice de Contenidos</div>
+        </div>
+        <ul id="toc">
+            <li><a href="#introduccion" class="active">1. Introducción y Modos de Despliegue</a>
+                <ul>
+                    <li><a href="#modo-vercel">1.1 Opción Inmediata: Vercel</a></li>
+                    <li><a href="#modo-local">1.2 Opción de Infraestructura Local</a></li>
+                </ul>
+            </li>
+            <li><a href="#guia-uso">2. Guía de Uso de la Aplicación</a>
+                <ul>
+                    <li><a href="#paso-1">2.1 Acta de Nacimiento</a></li>
+                    <li><a href="#paso-2">2.2 Registro de Costos</a></li>
+                    <li><a href="#paso-3">2.3 Registro del Proyecto</a></li>
+                    <li><a href="#paso-4">2.4 Dashboard y Resultados</a></li>
+                </ul>
+            </li>
+            <li><a href="#formulas">3. Fórmulas y Cálculos Internos</a></li>
+            <li><a href="#exportacion">4. Exportación de Reportes</a></li>
+        </ul>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="main-content">
+        <h1>Manual Técnico y de Usuario - Calculadora de Impacto</h1>
+        <p>Bienvenido al documento oficial de distribución y uso de la <strong>Calculadora de Impacto</strong> orientada a los Líderes Digitales y equipos de gestión de proyectos.</p>
+        
+        <section id="introduccion">
+            <h2>1. Introducción y Modos de Despliegue</h2>
+            <p>La herramienta se ha desarrollado utilizando tecnologías web modernas. Con el fin de evitar la transmisión de paquetes pesados e innecesarios (como la carpeta <code>node_modules</code> que puede pesar cientos de megabytes), ofrecemos al cliente dos modalidades ágiles y eficientes de distribución y despliegue.</p>
+            
+            <div class="alert-warning alert-box">
+                <strong>Consideración sobre el paquete de entrega:</strong> No se incluye la carpeta <code>node_modules</code> en los empaquetados entregables locales, ya que este código se autogenera mediante comandos genéricos del entorno Node.js, agilizando así la transferencia de la solución de nuestro equipo hacia el suyo.
+            </div>
+
+            <section id="modo-vercel">
+                <h3>1.1 Opción Inmediata: Alojamiento Administrado (Deploy en Vercel)</h3>
+                <p>Para comenzar a utilizar la Calculadora de Impacto sin requerir configuraciones de servidores por parte de su equipo TI, puede acceder mediante nuestros enlaces administrados y optimizados en la nube a través de la plataforma <strong>Vercel</strong>.</p>
+
+                <p><strong>Enlaces de acceso rápido:</strong></p>
+                <ul>
+                    <li><a href="https://apppucp.vercel.app/" target="_blank">https://apppucp.vercel.app/</a></li>
+                    <li><a href="https://apppucp-git-master-beawaremkts-projects.vercel.app" target="_blank">https://apppucp-git-master-beawaremkts-projects.vercel.app</a></li>
+                    <li><a href="https://apppucp-hl10az7bs-beawaremkts-projects.vercel.app" target="_blank">https://apppucp-hl10az7bs-beawaremkts-projects.vercel.app</a></li>
+                </ul>
+
+                <ul>
+                    <li><strong>Acceso inmediato:</strong> Sin instalación. Ingrese desde cualquier navegador web.</li>
+                    <li><strong>Mantenimiento cero:</strong> Nosotros nos encargamos de las actualizaciones y la estabilidad.</li>
+                    <li><strong>Seguridad de sesión:</strong> Los datos operativos de su proyecto se guardan <em>únicamente de manera temporal en el caché local de su navegador</em>, respetando completamente la privacidad de sus números confidenciales.</li>
+                </ul>
+                <img src="img/1.png" alt="Ingreso a Vercel" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+            </section>
+
+            <section id="modo-local">
+                <h3>1.2 Opción de Infraestructura Local o Propia</h3>
+                <p>Si las políticas de seguridad de su organización exigen alojamiento en su intranet o servidores web internos, puede hospedar usted mismo la aplicación. Nosotros entregaremos el código fuente limpio o la versión de compilación lista para producción.</p>
+                <p><strong>Pasos para el despliegue de la versión fuente en su servidor:</strong></p>
+                <ol>
+                    <li>Asegúrese de tener instalado <strong>Node.js</strong> (v18.x o superior) en el entorno deseado.</li>
+                    <li>Extraiga el código fuente proporcionado en nuestro archivo ZIP omitiendo búsquedas de librerías previas.</li>
+                    <li>Abra el terminal, ubíquese en la carpeta y ejecute <code>npm install</code>. (Esto descargará automáticamente todas las dependencias necesarias que nosotros omitimos estratégicamente en el ZIP).</li>
+                    <li>Ejecute <code>npm run build</code> para generar los archivos compilados estáticos optimizados. Esto creará una carpeta llamada <code>dist/</code>.</li>
+                    <li>Traslade el contenido de la carpeta <code>dist/</code> a cualquier servidor web tradicional (Apache, IIS, Nginx) que posea la organización.</li>
+                </ol>
+            </section>
+        </section>
+
+        <hr style="margin: 3rem 0; border: none; border-top: 1px solid #e5e7eb;">
+
+        <section id="guia-uso">
+            <h2>2. Guía de Uso de la Aplicación</h2>
+            <p>La Calculadora de Impacto está diseñada en un flujo lineal de 4 grandes fases o pestañas. Es importante seguir el orden de las pestañas desde el menú de navegación lateral para conseguir un cálculo exacto.</p>
+
+            <img src="img/2.png" alt="Menú Lateral" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+
+            <section id="paso-1">
+                <h3>2.1 Fase 1: Acta de Nacimiento (Punto Cero)</h3>
+                <p>En esta sección inicial, el Líder Digital documentará las bases y la problemática del proyecto para asentar una línea base (Línea Base Cuantitativa) que justificará la inversión.</p>
+                <ul>
+                    <li>Llene los detalles como el nombre del proyecto, unidad, y líder responsable.</li>
+                    <li><strong>El Dolor:</strong> Describa a detalle qué es lo que estanca el flujo actual e identifique las principales trabas utilizando los <em>checkboxes</em>.</li>
+                    <li><strong>Línea Base:</strong> Esta es la parte más importante. Ingrese cuántas transacciones mensuales/anuales procesan actualmente y el tiempo de ciclo que demora. <em>Esta cifra alimentará la matemática final de la herramienta.</em></li>
+                    <li>Formule su solución frente a estos problemas.</li>
+                </ul>
+                <img src="img/3.png" alt="Acta de Nacimiento" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+            </section>
+
+            <section id="paso-2">
+                <h3>2.2 Fase 2: Registro de Costos (La Inversión)</h3>
+                <p>Para calcular la rentabilidad (ROI) de la innovación, debemos sincerar el monto que se ha invertido para llevar a cabo la mejora digital.</p>
+                <ol>
+                    <li><strong>Registro de Horas:</strong> Registre cuántas horas invirtió su equipo de desarrollo, diseño o testing. Multiplique las horas por la tarifa estándar para hallar el costo en fuerza laboral (S/.).</li>
+                    <li><strong>Adquisición de Licencias:</strong> Agregue los softwares e infraestructuras anuales contratadas para lograr que la solución funcione permanentemente (Ej: Licencias Office 365, Power Automate, Servicios de Nube AWS, Kissflow).</li>
+                </ol>
+                <img src="img/4.png" alt="Registro de Costos" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+            </section>
+
+            <section id="paso-3">
+                <h3>2.3 Fase 3: Registro del Proyecto (Esfuerzo Operativo)</h3>
+                <p>En esta pantalla nos concentraremos en medir operativamente el impacto "Antes de la implementación" versus "Después de la implementación". Aquí demostraremos el ahorro real.</p>
+                <ul>
+                    <li>Utilice la tabla de <strong>Esfuerzo Operativo</strong> para agregar cuántas horas le tomaba a un puesto de trabajo realizar la transacción manualmente en el pasado (Antes), y contraste ese número creando el registro posterior a la solución técnica (Después).</li>
+                    <li><strong>Variables Cualitativas:</strong> ¿Ha mejorado la imagen de la organización? ¿Ha mitigado el estrés administrativo? Califique del 1 al 5 ambas realidades (Pre y Post solución).</li>
+                    <li><strong>Variables Cuantitativas:</strong> Registre el descenso numérico exacto de errores procesales o tiempos ociosos.</li>
+                </ul>
+                <img src="img/5.png" alt="Registro del Proyecto Operaciones" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+            </section>
+
+            <section id="paso-4">
+                <h3>2.4 Fase 4: Dashboard Integrado y Resultados Ejecutivos</h3>
+                <p>El punto culmen. Con sus datos proporcionados, la herramienta computa de manera automática los resultados globales y el impacto general que el proyecto ha propiciado para su organización.</p>
+                <p>Podrá visualizar los KPI de alto nivel en un panel de control modernizado (Gráficos interactivos de barra generados con la herramienta <em>Recharts</em>), presentando datos financieros fundamentales:</p>
+                <ul>
+                    <li>💰  <strong>Inversión Total:</strong> Su capital empleado y licencias en el proyecto tecnológico.</li>
+                    <li>🎯  <strong>Ahorro Financiero Anual:</strong> Beneficio monetario proyectado a un año frente a los gastos pasados.</li>
+                    <li>📈  <strong>Métricas de ROI %:</strong> Su Retorno de Inversión consolidado.</li>
+                    <li>⏳  <strong>Total de Horas Liberadas al Año.</strong></li>
+                </ul>
+                <img src="img/6.png" alt="Métricas Dashboard" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+                <img src="img/7.png" alt="Gráficos Dashboard" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+            </section>
+        </section>
+
+        <hr style="margin: 3rem 0; border: none; border-top: 1px solid #e5e7eb;">
+
+        <section id="formulas">
+            <h2>3. Fórmulas y Cálculos Internos de la Calculadora</h2>
+            <p>Para la total transparencia del motor analítico de nuestra herramienta subyacente, compartimos la lógica matemática y algoritmos que permiten llegar a las proyecciones visualizadas en el Dashboard:</p>
+            
+            <div class="alert-box">
+                <h4>Matemática Computada en nuestro Módulo de Cálculos</h4>
+                <pre><code>
+1. Inversión Total = Σ(Horas Trabajador * Tarifa Trabajo) + Σ(Costo de Licencias)
+
+2. Costo Operativo Pasado = Σ(Horas "Antes" Operativas * Tarifa Rol) 
+3. Costo Operativo Nuevo = Σ(Horas "Después" * Tarifa Rol)
+
+4. Diferencia Neta Costo Unidad = Costo Operativo Pasado - Costo Operativo Nuevo
+
+5. Factor de Conversión de Transacciones = (Si es Mensual * 12) (Si es Semanal * 52) (Si es Anual * 1)
+
+6. AHORRO FINANCIERO ANUAL NETO = Diferencia Neta Costo Unidad * Volumen Transacciones Línea Base * Factor de Conversión
+
+7. ROI ALCANZADO (%) = ((Ahorro Financiero Anual Neto - Inversión Total) / Inversión Total) * 100
+                </code></pre>
+            </div>
+            <p>De esta manera automatizamos un proceso consultivo matemático que solía requerir pesados libros de cálculo hacia el ecosistema reactivo y ágil que su equipo disfruta hoy.</p>
+        </section>
+
+        <section id="exportacion">
+            <h2>4. Exportación de Reportes Múltiples</h2>
+            <p>Sabemos que los Liderazgos exigen respaldos documentales. Por ello, si se encuentra en la etapa final de registro (opción web Vercel), asegúrese de extraer la data antes de concluir dado que ésta no se persistirá mágicamente por motivos de privacidad.</p>
+            <ul>
+                <li><strong>Reporte Automático en PDF:</strong> En el Dashboard, identifique el botón de PDF. Este compilará inteligentemente tablas estructuradas (Autotables) que compondrán un resumen gerencial listo para imprimir con la hoja de vida del proyecto.</li>
+                <li><strong>Volcado de Data en Excel (XLSX):</strong> A través de nuestro componente integrado exportador con hojas múltiples, todos sus registros manuales (Acta, Licencias, Tiempos de Esfuerzo) se volcarán a un Excel inmaculado de múltiples pestañas listas para su histórico en su intranet o nube segura empresarial.</li>
+                <li><strong>Extractos CSV:</strong> Obtenga un modelo puramente plano de variables.</li>
+            </ul>
+             <img src="img/8.png" alt="Exportar Reportes" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+        </section>
+
+        <footer style="margin-top: 5rem; text-align: center; font-size: 0.8rem; color: #cbd5e1; padding-top: 1.5rem; border-top: 1px solid #f1f5f9;">
+            Powered by BeAware
+        </footer>
+    </main>
+
+    <!-- INTERACTIVIDAD CON JAVASCRIPT: Scroll Spy del Sidebar -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -50% 0px',
+                threshold: 0
+            };
+
+            const observerCallback = (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0) {
+                        // Quita la clase 'active' de todos
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        
+                        // Añade 'active' al enlace correspondiente a la seccion en vista
+                        const activeId = entry.target.id;
+                        const activeLink = document.querySelector(`.sidebar a[href="#${activeId}"]`);
+                        
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                            // Si es un subsiderecho, ilumina tambien al padre opcionalmente
+                            const parentMenuElement = activeLink.closest('ul').closest('li');
+                            if(parentMenuElement){
+                                const parentLinkElement = parentMenuElement.querySelector('a');
+                                if(parentLinkElement && parentLinkElement !== activeLink) {
+                                    parentLinkElement.classList.add('active');
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+            sections.forEach(sec => {
+                observer.observe(sec);
+            });
+
+            // Smooth scrolling para anclas
+            document.querySelectorAll('.sidebar a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if(href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if(targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

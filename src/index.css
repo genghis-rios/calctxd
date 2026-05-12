@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-pucp-blue: #1a2d6d;
+  --color-pucp-gold: #f0b90b;
+}
+
+body {
+  font-family: 'Segoe UI', 'Inter', 'Roboto', sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
