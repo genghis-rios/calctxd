@@ -15,6 +15,10 @@ RUN npm run build
 
 FROM nginx:stable-bookworm
 
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY --from=build /app/dist/ /usr/share/nginx/html/
+
 RUN mkdir -p /usr/share/nginx/html/calc
 
 COPY --from=build /app/dist/ /usr/share/nginx/html/calc/
